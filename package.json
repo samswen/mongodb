@@ -14,7 +14,7 @@
     "url": "git+https://github.com/samswen/mongodb.git"
   },
   "keywords": [
-    "monogodb",
+    "mongodb",
     "open",
     "close",
     "getClient"
