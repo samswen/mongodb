@@ -1,6 +1,6 @@
 {
   "name": "@samwen/mongodb",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "mongodb class for basic open close getClient operations",
   "main": "src/index.js",
   "directories": {
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/samswen/mongodb#readme",
   "dependencies": {
-    "mongodb": "^3.5.1"
+    "mongodb": "^3.5.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",
