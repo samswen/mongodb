@@ -9,19 +9,38 @@ class Mongodb {
         this.poolSize =  poolSize;
         this.client = null;
         this.db = null;
+        this.dbName = null;
     }
 
-    async open() {
-        if (this.db && this.client) {
+    async open(dbName = null, cName = null) {
+        if (this.db && this.client && this.dbName === dbName) {
+            if (cName) {
+                return this.db.collection(cName);
+            } else {
+                return this.db;
+            }
+        }
+        if (!this.client) {
+            this.client = await MongoClient.connect(this.url, { 
+                useUnifiedTopology: true,
+                minSize: this.minSize,
+                poolSize: this.poolSize,
+            });
+        }
+        this.dbName = dbName;
+        this.db = this.client.db(dbName);
+        if (cName) {
+            return this.db.collection(cName);
+        } else {
             return this.db;
         }
-        this.client = await MongoClient.connect(this.url, { 
-            useUnifiedTopology: true,
-            minSize: this.minSize,
-            poolSize: this.poolSize,
-        });
-        this.db = this.client.db();
-        return this.db;
+    }
+
+    async listDbs() {
+        if (!this.db) {
+            await this.open();
+        }
+        return await this.db.admin().listDatabases();
     }
 
     async close() {
