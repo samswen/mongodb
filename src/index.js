@@ -36,6 +36,21 @@ class Mongodb {
         }
     }
 
+    async collection(cName) {
+        if (this.db && this.client) {
+            return this.db.collection(cName);
+        }
+        if (!this.client) {
+            this.client = await MongoClient.connect(this.url, { 
+                useUnifiedTopology: true,
+                minSize: this.minSize,
+                poolSize: this.poolSize,
+            });
+        }
+        this.db = this.client.db();
+        return this.db.collection(cName);
+    }
+    
     async listDbs() {
         if (!this.db) {
             await this.open();
