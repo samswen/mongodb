@@ -8,17 +8,22 @@ class Mongodb {
         this.minSize = minSize;
         this.poolSize =  poolSize;
         this.client = null;
-        this.db = null;
+        this.database = null;
         this.dbName = null;
     }
 
     async open(dbName = null, cName = null) {
-        if (this.db && this.client && this.dbName === dbName) {
-            if (cName) {
-                return this.db.collection(cName);
-            } else {
-                return this.db;
-            }
+        const database = await this.db(dbName);
+        if (cName) {
+            return database.collection(cName);
+        } else {
+            return database;
+        }
+    }
+
+    async db(dbName = null) {
+        if (this.client && this.database && this.dbName === dbName) {
+            return this.database;
         }
         if (!this.client) {
             this.client = await MongoClient.connect(this.url, { 
@@ -27,39 +32,30 @@ class Mongodb {
                 poolSize: this.poolSize,
             });
         }
-        this.dbName = dbName;
-        this.db = this.client.db(dbName);
-        if (cName) {
-            return this.db.collection(cName);
-        } else {
-            return this.db;
+        if (dbName && this.dbName !== dbName) {
+            this.dbName = dbName;
+            this.database = this.client.db(dbName);
         }
+        if (!this.database) {
+            this.database = this.client.db();
+        }
+        return this.database;
     }
 
     async collection(cName) {
-        if (this.db && this.client) {
-            return this.db.collection(cName);
-        }
-        if (!this.client) {
-            this.client = await MongoClient.connect(this.url, { 
-                useUnifiedTopology: true,
-                minSize: this.minSize,
-                poolSize: this.poolSize,
-            });
-        }
-        this.db = this.client.db();
-        return this.db.collection(cName);
+        const database = await this.db();
+        return database.collection(cName);
     }
     
     async listDbs() {
-        if (!this.db) {
+        if (!this.database) {
             await this.open();
         }
-        return await this.db.admin().listDatabases();
+        return await this.database.admin().listDatabases();
     }
 
     async close() {
-        this.db = null;
+        this.database = null;
         if (this.client) {
             try {
                 await this.client.close();
