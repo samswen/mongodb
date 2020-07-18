@@ -1,6 +1,7 @@
 'use strict';
 
 const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 
 class Mongodb {
     constructor(url, minSize = 4, poolSize = 16) {
@@ -69,6 +70,29 @@ class Mongodb {
     getClient() {
         return this.client;
     }
+
+    string_id(any_id) {
+        if (ObjectID.isValid(any_id)) {
+            if (typeof any_id === 'string') {
+                return any_id;
+            } else {
+                return any_id.toString();
+            }
+        }
+        throw Error('invalid object id');
+    }
+
+    object_id(any_id) {
+        if (ObjectID.isValid(any_id)) {
+            if (typeof any_id === 'string') {
+                return new ObjectID(any_id);
+            } else {
+                return any_id;
+            }
+        }
+        throw Error('invalid object id');
+    }
+
 }
 
 module.exports = Mongodb;
