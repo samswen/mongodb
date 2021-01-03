@@ -1,6 +1,6 @@
 {
   "name": "@samwen/mongodb",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "mongodb class for basic open close getClient operations",
   "main": "src/index.js",
   "directories": {
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/samswen/mongodb#readme",
   "dependencies": {
-    "mongodb": "^3.6.2",
+    "mongodb": "^3.6.3",
     "saslprep": "^1.0.3"
   },
   "devDependencies": {
@@ -34,6 +34,6 @@
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
     "mocha": "^7.2.0",
-    "sinon": "^9.2.1"
+    "sinon": "^9.2.2"
   }
 }
