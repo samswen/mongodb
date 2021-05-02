@@ -1,7 +1,7 @@
 {
   "name": "@samwen/mongodb",
-  "version": "1.1.2",
-  "description": "mongodb class for basic open close getClient operations",
+  "version": "1.1.3",
+  "description": "mongodb class for basic operations",
   "main": "src/index.js",
   "directories": {
     "test": "test"

@@ -55,6 +55,29 @@ class Mongodb {
         return await this.database.admin().listDatabases();
     }
 
+    async list_collections(dbName) {
+        const database = await this.db(dbName);
+        const collections = await database.listCollections().toArray();
+        const list = [];
+        for (const item of collections) {
+            if (item.type === 'collection') {
+                list.push(item.name);
+            }
+        }
+        return list;
+    }
+    
+    async has_collection(dbName, name) {
+        const database = await this.db(dbName);
+        const collections = await database.listCollections().toArray();
+        const index = collections.findIndex(x => x.name === name);
+        if (index === -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     async close() {
         this.database = null;
         if (this.client) {
@@ -92,7 +115,6 @@ class Mongodb {
         }
         throw Error('invalid object id');
     }
-
 }
 
 module.exports = Mongodb;
