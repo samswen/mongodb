@@ -1,10 +1,10 @@
 'use strict';
 
-const MongoClient = require('mongodb').MongoClient;
-const ObjectID = require('mongodb').ObjectID;
+const { MongoClient } = require('mongodb');
+const { ObjectId } = require('mongodb');
 
 class Mongodb {
-    constructor(url, minSize = 4, poolSize = 16) {
+    constructor(url, minSize = 2, poolSize = 16) {
         this.url = url;
         this.minSize = minSize;
         this.poolSize =  poolSize;
@@ -29,8 +29,8 @@ class Mongodb {
         if (!this.client) {
             this.client = await MongoClient.connect(this.url, { 
                 useUnifiedTopology: true,
-                minSize: this.minSize,
-                poolSize: this.poolSize,
+                minPoolSize: this.minSize,
+                maxPoolSize: this.poolSize,
             });
         }
         if (dbName && this.dbName !== dbName) {
@@ -95,7 +95,15 @@ class Mongodb {
     }
 
     string_id(any_id) {
-        if (ObjectID.isValid(any_id)) {
+        return Mongodb.stringId(any_id);
+    }
+
+    object_id(any_id) {
+        return Mongodb.objectId(any_id);
+    }
+
+    static stringId(any_id) {
+        if (ObjectId.isValid(any_id)) {
             if (typeof any_id === 'string') {
                 return any_id;
             } else {
@@ -105,10 +113,10 @@ class Mongodb {
         throw Error('invalid object id');
     }
 
-    object_id(any_id) {
-        if (ObjectID.isValid(any_id)) {
+    static objectId(any_id) {
+        if (ObjectId.isValid(any_id)) {
             if (typeof any_id === 'string') {
-                return new ObjectID(any_id);
+                return new ObjectId(any_id);
             } else {
                 return any_id;
             }

@@ -1,7 +1,7 @@
 'use strict';
 
 const Mongodb = require('../src');
-const ObjectID = require('mongodb').ObjectID;
+const { ObjectId } = require('mongodb');
 
 const chai = require('chai');
 const assert = chai.assert;
@@ -175,7 +175,7 @@ describe('test string_id', () => {
 
     it('verifies it should return string id if it is valid', async () => {
 
-        const oid = new ObjectID();
+        const oid = new ObjectId();
         const sid = oid.toString();
 
         const mongodb_url = 'mongodb://localhost';
@@ -202,7 +202,7 @@ describe('test object_id', () => {
 
     it('verifies it should return object id if it is valid', async () => {
 
-        const oid = new ObjectID();
+        const oid = new ObjectId();
         const sid = oid.toString();
 
         const mongodb_url = 'mongodb://localhost';
