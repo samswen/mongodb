@@ -1,6 +1,6 @@
 {
   "name": "@samwen/mongodb",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "mongodb class for basic operations",
   "main": "src/index.js",
   "directories": {
@@ -32,7 +32,7 @@
     "mocha": "^9.1.3"
   },
   "dependencies": {
-    "mongodb": "^4.2.0",
+    "mongodb": "^4.3.1",
     "saslprep": "^1.0.3"
   }
 }

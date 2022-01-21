@@ -4,7 +4,7 @@ const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
 
 class Mongodb {
-    constructor(url, minSize = 2, poolSize = 16) {
+    constructor(url = 'mongodb://127.0.0.1', minSize = 2, poolSize = 16) {
         this.url = url;
         this.minSize = minSize;
         this.poolSize =  poolSize;
