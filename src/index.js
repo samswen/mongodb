@@ -1,7 +1,6 @@
 'use strict';
 
-const { MongoClient } = require('mongodb');
-const { ObjectId } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 
 class Mongodb {
     constructor(url = 'mongodb://127.0.0.1', minSize = 2, poolSize = 16) {
