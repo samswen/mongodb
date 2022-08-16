@@ -3,7 +3,7 @@
 const { MongoClient, ObjectId } = require('mongodb');
 
 class Mongodb {
-    constructor(url = 'mongodb://127.0.0.1', minSize = 2, poolSize = 16) {
+    constructor(url = 'mongodb://127.0.0.1', minSize = 2, poolSize = 8) {
         this.url = url;
         this.minSize = minSize;
         this.poolSize =  poolSize;

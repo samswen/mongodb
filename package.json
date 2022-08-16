@@ -1,6 +1,6 @@
 {
   "name": "@samwen/mongodb",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "mongodb class for basic operations",
   "main": "src/index.js",
   "directories": {
@@ -26,13 +26,13 @@
   },
   "homepage": "https://github.com/samswen/mongodb#readme",
   "dependencies": {
-    "mongodb": "^4.3.1",
+    "mongodb": "^4.8.1",
     "saslprep": "^1.0.3"
   },
   "devDependencies": {
     "chai": "^4.3.6",
-    "eslint": "^8.9.0",
+    "eslint": "^8.22.0",
     "eslint-config-google": "^0.14.0",
-    "mocha": "^9.2.0"
+    "mocha": "^10.0.0"
   }
 }
